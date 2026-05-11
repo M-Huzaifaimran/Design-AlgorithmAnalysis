@@ -1,0 +1,63 @@
+------------QUESTION 01--------------
+Adjacency Matrix:
+-	Create an n × n matrix, initialise all entries to 0 
+-	For each edge (u, v): set matrix[u][v] = 1 and matrix[v][u] = 1 (undirected)
+-	Edge check in O(1); finding all edges costs O(n2)
+Adjacency List:
+-	Create an array of n empty lists (node-indexed) 
+-	For each edge (u, v): append v to list[u] and u to list[v]
+-	Space O(V + E); edge check O(degree(u)); identifying all edges O(V + E)
+Edge List:
+-	Maintain a single list of pairs (u, v) for every edge 
+-	Particularly useful in algorithms that iterate over all edges (e.g., Kruskal's MST)
+
+
+-----------QUESTION 02--------------
+COIN-CHANGE(amount):
+  denominations = [5000, 1000, 500, 100, 50, 20, 10, 5, 2, 1]
+  w = amount  (e.g., 1988)
+  
+  FOR each denomination d in denominations DO:
+    count = floor(w / d)        ← number of coins of this denomination
+    IF count > 0:
+      print count coins of denomination d
+    w = w - (count * d)         ← reduce remaining amount
+  END FOR
+
+
+--------QUESTION 03-----------
+TOPOLOGICAL-SORT(G):
+  1. Call DFS(G) to compute finishing times v.f for each vertex v
+  2. As each vertex is finished, insert it onto the FRONT of a linked list
+  3. Return the linked list of vertices
+
+DFS-VISIT(G, u):
+  u.color = GRAY
+  for each v in G.Adj[u]:
+    if v.color == WHITE:
+      DFS-VISIT(G, v)
+  u.color = BLACK
+  INSERT u at FRONT of result list   
+
+
+-----------QUESTION 04------------
+LCS(S, n, T, m):
+  Create table LCS[0..n][0..m], initialize row 0 and col 0 to 0
+
+  FOR i = 1 to n DO:
+    FOR j = 1 to m DO:
+      IF S[i] == T[j]:
+        LCS[i][j] = 1 + LCS[i-1][j-1]
+      ELSE:
+        LCS[i][j] = max(LCS[i-1][j], LCS[i][j-1])
+  // Backtracking
+  Start at LCS[n][m]
+  WHILE i > 0 AND j > 0:
+    IF S[i] == T[j]:
+      record S[i], move diagonally (i-1, j-1)
+    ELSE IF LCS[i-1][j] > LCS[i][j-1]:
+      move up (i-1, j)
+    ELSE:
+      move left (i, j-1)
+  Reverse the recorded characters → LCS string
+
