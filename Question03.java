@@ -38,11 +38,13 @@ public class TopologicalSort {
         addEdge("m", "q");
         addEdge("m", "t");
         addEdge("m", "x");
+        addEdge("m", "r"); 
         addEdge("n", "o");
         addEdge("n", "q");
         addEdge("n", "u");
         addEdge("o", "r");
         addEdge("o", "s");
+        addEdge("o", "v");
         addEdge("p", "o");
         addEdge("p", "s");
         addEdge("p", "z");
