@@ -80,6 +80,10 @@ public class Main {
         String pattern = "sort";
 
         System.out.println("Boyer-Moore String Matching\n");
+
+        System.out.println("Boyer-Moore String Matching\n");
+        System.out.println("Text   : " + text);
+        
         boyerMoore(text, pattern);
     }
 }
