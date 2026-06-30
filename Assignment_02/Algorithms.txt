@@ -1,1 +1,72 @@
+------------------ QUESTION 01 ----------------
+EDMONDS-KARP(G, s, t):
+1. For each edge e ∈ E: f(e) ← 0
+2. Gf ← residual graph
+3. WHILE (there exists an augmenting path P in Gf found by BFS):
+      bottleneck ← min residual capacity along P
+      For each edge (u,v) in P:
+          f(u,v) ← f(u,v) + bottleneck
+          f(v,u) ← f(v,u) - bottleneck   // update reverse edge
+      Update Gf
+4. RETURN f
+
+BFS to find augmenting path:
+- Use queue, start from source s
+- For each neighbor v of u: if residual capacity > 0 and v not visited
+      enqueue v, mark visited, record parent
+- If sink t is reached, reconstruct path via parent array
+
+
+
+------------------ QUESTION 02 ----------------
+BOYER-MOORE-MATCHER(T, P, Σ):
+1.  n ← length[T]
+2.  m ← length[P]
+3.  λ ← COMPUTE-LAST-OCCURRENCE-FUNCTION(P, m, Σ)  
+4.  γ ← COMPUTE-GOOD-SUFFIX-FUNCTION(P, m)          
+5.  s ← 0
+6.  while s ≤ n - m:
+7.      j ← m
+8.      while j > 0 and P[j] == T[s+j]:
+9.          j ← j - 1
+10.     if j == 0:
+11.         print "Pattern occurs at shift s"
+12.         s ← s + γ[0]
+13.     else:
+14.         s ← s + max(γ[j], j - λ[T[s+j]])  
+
+COMPUTE-LAST-OCCURRENCE-FUNCTION(P, m, Σ):
+1. for each a ∈ Σ: λ[a] = 0
+2. for j ← 1 to m: λ[P[j]] ← j
+3. return λ
+
+COMPUTE-GOOD-SUFFIX-FUNCTION(P, m):
+// Uses prefix function on P and reverse of P
+
+
+
+------------------ QUESTION 03 ----------------
+DIJKSTRA(G, w, s):
+for each u ∈ V:
+    d[u] = ∞
+    color[u] = WHITE
+d[s] = 0
+pred[s] = NIL
+Q = (priority queue with all vertices)
+
+while Non-Empty(Q):
+    u = Extract-Min(Q)         
+    for each v ∈ Adj[u]:
+        if d[u] + w(u,v) < d[v]:   
+            d[v] = d[u] + w(u,v)
+            Decrease-Key(Q, v, d[v])
+            pred[v] = u
+    color[u] = BLACK
+RELAX(u, v, w) from your slides:
+if v.d > u.d + w(u,v):
+    v.d = u.d + w(u,v)
+    v.π = u
+
+
+
 
